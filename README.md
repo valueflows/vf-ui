@@ -11,6 +11,8 @@ We achieve this by building to the [ValueFlows GraphQL protocol](https://github.
 	- [Editor setup](#editor-setup)
 		- [Sublime Text](#sublime-text)
 		- [VSCode](#vscode)
+- [Project structure](#project-structure)
+- [License](#license)
 
 <!-- /MarkdownTOC -->
 
@@ -58,3 +60,20 @@ The key element is `selector`, which must have the svelte source type added to i
 #### VSCode
 
 TBC
+
+
+
+
+
+## Project structure
+
+- `src/` contains the component source files and Storybook tests:
+	- Components are laid out using the [React Fractal](https://hackernoon.com/fractal-a-react-app-structure-for-infinite-scale-4dab943092af) pattern.
+	- All components include storybook scenario tests and markdown usage notes.
+
+
+
+
+## License
+
+Licensed under an Apache 2.0 license.

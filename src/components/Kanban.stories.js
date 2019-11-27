@@ -1,5 +1,6 @@
 import { storiesOf } from '@storybook/svelte'
 import Kanban from './Kanban.svelte'
+import markdownNotes from './Kanban.stories.md'
 
 storiesOf('Kanban|Whole board', module)
   .add(
@@ -9,4 +10,5 @@ storiesOf('Kanban|Whole board', module)
       props: {
       },
     }),
+    { notes: { markdown: markdownNotes } },
   )

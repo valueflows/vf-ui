@@ -1,6 +1,7 @@
 <script>
-  export let bins
-  export let due
+  import Bin from './kanban/Bin.svelte'
+
+  export let bins = []
 </script>
 
 <style>
@@ -23,6 +24,14 @@
 
 <div class="board_container">
   <div class="board">
-    I AM A KABNAS
+    {#each bins as bin}
+      <Bin
+        cards={bin.cards}
+        outputs={bin.outputs}
+        due={bin.due}
+        title={bin.title}
+        note={bin.note}
+      />
+    {/each}
   </div>
 </div>

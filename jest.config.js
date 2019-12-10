@@ -7,6 +7,8 @@ module.exports = {
   transform: {
     '^.+\\.js$': 'babel-jest',
     '^.+\\.svelte$': ['svelte-jester', { preprocess: true }],
+    '^.+\\.md$': path.resolve(__dirname, './.storybook/__mocks__/markdownFile'),
+    '^.+\\.(css|less|scss|sass)$': path.resolve(__dirname, './.storybook/__mocks__/styleMock'),
   },
   moduleFileExtensions: ['js', 'svelte'],
   bail: false,

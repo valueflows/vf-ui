@@ -11,6 +11,7 @@ We achieve this by building to the [ValueFlows GraphQL protocol](https://github.
 	- [Editor setup](#editor-setup)
 		- [Sublime Text](#sublime-text)
 		- [VSCode](#vscode)
+- [Related documentation](#related-documentation)
 - [Project structure](#project-structure)
 - [License](#license)
 
@@ -60,6 +61,23 @@ The key element is `selector`, which must have the svelte source type added to i
 #### VSCode
 
 TBC
+
+
+
+
+
+## Related documentation
+
+These are important API references and resources that developers of this repository will likely need to refer back to often.
+
+- **Component framework:**
+	- Official [Svelte documentation](https://svelte.dev/docs)
+- **Component styles:**
+	- [CSS-preset-env](https://preset-env.cssdb.org/features) feature reference. Note that we only target `stage 2+`.
+- **Testing:**
+	- We use [Jest](https://jestjs.io/docs/en/) and its [expect API](https://jestjs.io/docs/en/expect.html) for test assertions.
+	- [@testing-library/svelte API](https://testing-library.com/docs/svelte-testing-library/api) is used to handle component test rendering. *(It serves the same function that Enzyme does in React projects.)*
+	- [storybook-addon-specifications](https://www.npmjs.com/package/storybook-addon-specifications) manages the integration between Jest and Storybook.
 
 
 

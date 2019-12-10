@@ -9,8 +9,8 @@ storiesOf('Kanban|Whole board', module)
 
   .add('empty state',
     () => {
-      specs(() => describe('empty state', function () {
-        it('Should render OK without any props provided', async () => {
+      specs(() => describe('empty state', () => {
+        it('should render', async () => {
           expect(render(Kanban)).toBeTruthy()
         })
       }))
@@ -26,9 +26,8 @@ storiesOf('Kanban|Whole board', module)
 
   .add(
     'with tasks',
-    () => ({
-      Component: Kanban,
-      props: {
+    () => {
+      const props = {
         bins: [{
           title: 'first batch of tasks',
           note: 'doing stuff',
@@ -47,7 +46,18 @@ storiesOf('Kanban|Whole board', module)
             },
           }],
         }],
-      },
-    }),
+      }
+
+      specs(() => describe('with tasks', () => {
+        it('should render', async () => {
+          expect(render(Kanban, { props })).toBeTruthy()
+        })
+      }))
+
+      return {
+        Component: Kanban,
+        props,
+      }
+    },
     { notes: { markdown: markdownNotes } },
   )

@@ -1,5 +1,5 @@
 import { storiesOf, specs, describe, it } from '!/facade'
-import { render } from '@testing-library/svelte'
+import { render, cleanup } from '@testing-library/svelte'
 import expect from 'expect'
 
 import Kanban from './Kanban.svelte'
@@ -12,6 +12,7 @@ storiesOf('Kanban|Whole board', module)
       specs(() => describe('empty state', () => {
         it('should render', async () => {
           expect(render(Kanban)).toBeTruthy()
+          cleanup()
         })
       }))
 
@@ -51,6 +52,7 @@ storiesOf('Kanban|Whole board', module)
       specs(() => describe('with tasks', () => {
         it('should render', async () => {
           expect(render(Kanban, { props })).toBeTruthy()
+          cleanup()
         })
       }))
 

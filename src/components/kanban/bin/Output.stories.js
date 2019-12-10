@@ -1,5 +1,5 @@
 import { storiesOf, specs, describe, it } from '!/facade'
-import { render } from '@testing-library/svelte'
+import { render, cleanup } from '@testing-library/svelte'
 import expect from 'expect'
 
 import Output from './Output.svelte'
@@ -13,6 +13,7 @@ storiesOf('Kanban|Batch output', module)
       specs(() => describe('empty state', () => {
         it('should render', async () => {
           expect(render(Output)).toBeTruthy()
+          cleanup()
         })
       }))
 
@@ -44,6 +45,7 @@ storiesOf('Kanban|Batch output', module)
       specs(() => describe('with output resources', () => {
         it('should render', async () => {
           expect(render(Output, { props })).toBeTruthy()
+          cleanup()
         })
       }))
 

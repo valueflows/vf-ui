@@ -1,5 +1,5 @@
 import { storiesOf, specs, describe, it } from '!/facade'
-import { render } from '@testing-library/svelte'
+import { render, cleanup } from '@testing-library/svelte'
 import expect from 'expect'
 
 import Card from './Card.svelte'
@@ -13,6 +13,7 @@ storiesOf('Kanban|Task card', module)
       specs(() => describe('empty state', () => {
         it('should render', async () => {
           expect(render(Card)).toBeTruthy()
+          cleanup()
         })
       }))
 
@@ -38,6 +39,7 @@ storiesOf('Kanban|Task card', module)
       specs(() => describe('with linked task', () => {
         it('should render', async () => {
           expect(render(Card, { props })).toBeTruthy()
+          cleanup()
         })
       }))
 

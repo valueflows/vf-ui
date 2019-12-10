@@ -10,7 +10,7 @@ storiesOf('Kanban|Whole board', module)
   .add('empty state',
     () => {
       specs(() => describe('empty state', function () {
-        it('Should render OK without any props provided', function () {
+        it('Should render OK without any props provided', async () => {
           expect(render(Kanban)).toBeTruthy()
         })
       }))

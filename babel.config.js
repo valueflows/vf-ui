@@ -15,10 +15,10 @@ module.exports = {
         },
       ],
     }],
-  //   ["@babel/plugin-transform-runtime",
-  //     {
-  //       "regenerator": true
-  //     }
-  //   ]
+    ['@babel/plugin-transform-runtime',
+      {
+        regenerator: true,
+      },
+    ],
   ],
 }

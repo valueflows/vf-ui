@@ -10,6 +10,7 @@
   },
   "extends": ["standard"],
   "rules": {
+    "import/no-webpack-loader-syntax": 0,
     "no-unused-vars": 1,
     "comma-dangle": [1, "always-multiline"]
   },

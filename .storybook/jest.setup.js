@@ -2,4 +2,4 @@
 
 const path = require('path')
 
-jest.mock(path.resolve(__dirname, './.storybook/facade'))
+jest.mock(path.resolve(__dirname, './facade'))

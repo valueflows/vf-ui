@@ -13,7 +13,7 @@ module.exports = {
   verbose: false,
   automock: false,
   setupFiles: [
-    path.resolve(__dirname, './jest.setup.js'),
+    path.resolve(__dirname, './.storybook/jest.setup.js'),
   ],
   setupFilesAfterEnv: [
     // '@testing-library/svelte/cleanup-after-each',

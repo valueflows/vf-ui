@@ -1,4 +1,7 @@
-import { storiesOf } from '@storybook/svelte'
+import { storiesOf, specs, describe, it } from '!/facade'
+import { render } from '@testing-library/svelte'
+import expect from 'expect'
+
 import Bin from './Bin.svelte'
 import markdownNotes from './Bin.stories.md'
 
@@ -6,20 +9,29 @@ storiesOf('Kanban|Task batch', module)
 
   .add(
     'empty state',
-    () => ({
-      Component: Bin,
-      props: {
+    () => {
+      const props = {
         title: 'an empty task bin',
-      },
-    }),
+      }
+
+      specs(() => describe('empty state', () => {
+        it('should render', async () => {
+          expect(render(Bin, { props })).toBeTruthy()
+        })
+      }))
+
+      return {
+        Component: Bin,
+        props,
+      }
+    },
     { notes: { markdown: markdownNotes } },
   )
 
   .add(
     'with cards',
-    () => ({
-      Component: Bin,
-      props: {
+    () => {
+      const props = {
         title: 'bin with cards',
         cards: [
           {
@@ -29,7 +41,18 @@ storiesOf('Kanban|Task batch', module)
             title: 'first task',
           },
         ],
-      },
-    }),
+      }
+
+      specs(() => describe('with cards', () => {
+        it('should render', async () => {
+          expect(render(Bin, { props })).toBeTruthy()
+        })
+      }))
+
+      return {
+        Component: Bin,
+        props,
+      }
+    },
     { notes: { markdown: markdownNotes } },
   )

@@ -1,4 +1,7 @@
-import { storiesOf } from '@storybook/svelte'
+import { storiesOf, specs, describe, it } from '!/facade'
+import { render } from '@testing-library/svelte'
+import expect from 'expect'
+
 import Output from './Output.svelte'
 import markdownNotes from './Output.stories.md'
 
@@ -6,19 +9,24 @@ storiesOf('Kanban|Batch output', module)
 
   .add(
     'empty state',
-    () => ({
-      Component: Output,
-      props: {
-      },
-    }),
+    () => {
+      specs(() => describe('empty state', () => {
+        it('should render', async () => {
+          expect(render(Output)).toBeTruthy()
+        })
+      }))
+
+      return {
+        Component: Output,
+      }
+    },
     { notes: { markdown: markdownNotes } },
   )
 
   .add(
     'with output resources',
-    () => ({
-      Component: Output,
-      props: {
+    () => {
+      const props = {
         outputs: [
           {
             resourceClassifiedAs: {
@@ -31,7 +39,18 @@ storiesOf('Kanban|Batch output', module)
             },
           },
         ],
-      },
-    }),
+      }
+
+      specs(() => describe('with output resources', () => {
+        it('should render', async () => {
+          expect(render(Output, { props })).toBeTruthy()
+        })
+      }))
+
+      return {
+        Component: Output,
+        props,
+      }
+    },
     { notes: { markdown: markdownNotes } },
   )

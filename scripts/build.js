@@ -84,7 +84,9 @@ const main = async () => {
   Promise.all(threads).then(() => {
     if (errors.length) {
       console.error('Finished with errors:')
-      console.error(errors)
+      errors.forEach(err => {
+        console.error("\n" + err.toString())
+      })
     } else {
       console.log('Compiled successfully.')
     }

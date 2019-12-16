@@ -1,6 +1,6 @@
 const path = require('path')
 
-const sveltePreprocess = require('svelte-preprocess')
+const svelteOptions = require(path.join(process.cwd(), 'svelte.config'))
 
 module.exports = ({ config, mode }) => {
 
@@ -17,21 +17,7 @@ module.exports = ({ config, mode }) => {
   config.module.rules.forEach(rule => {
     // inject preprocessor plugin into Svelte
     if (rule.loader === svelteLoaderPath) {
-      rule.options = {
-        preprocess: [
-          sveltePreprocess({
-            postcss: true,
-            // :TODO: has issues with Svelte `3.15.0`, subsequent versions may fix
-            // typescript: {
-            //   tsconfigDirectory: path.resolve(__dirname, '../'),
-            //   transpileOnly: false,
-            // },
-            stylus: false,
-            scss: false,
-            pug: false,
-          }),
-        ],
-      }
+      rule.options = svelteOptions
     }
   })
 

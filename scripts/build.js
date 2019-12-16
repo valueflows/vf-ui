@@ -1,4 +1,13 @@
-// @see https://github.com/sveltejs/rollup-plugin-svelte/blob/master/index.js
+/**
+ * Build script to turn Svelte components into compiled, ready-to-go, runtime-specific
+ * components that can be dropped in to native web, React & Angular projects (and
+ * potentially others in future) without requiring any bundler / loader configuration.
+ *
+ * @see https://github.com/sveltejs/rollup-plugin-svelte/blob/master/index.js
+ *
+ * @package: HoloREA
+ * @since:   2019-12-16
+ */
 
 const path = require('path')
 const fs = require('fs')
@@ -20,14 +29,19 @@ const main = async () => {
   const threads = []
 
   function extractWarnings (warnings) {
-    errors = errors.concat(warnings)
+    if (warnings && warnings.length) {
+      errors = errors.concat(warnings)
+    }
   }
 
+  // iterate over all Svelte components
   for await (const path of globby.stream(MATCH_PATHS)) {
     threads.push(new Promise((resolve, reject) => {
       fs.readFile(path, async (err, file) => {
         if (err) {
-          return reject(new Error(`Error reading ${path}:`, err))
+          err.message = `Error reading ${path}: ${err.message}`
+          errors.push(err)
+          return resolve() // always return success, log errors non-fatally & separately
         }
 
         const thisFileOpts = { filename: path }
@@ -53,7 +67,12 @@ const main = async () => {
         }
 
         // write assets to disk
-        await writeComponentFiles(path, compiled)
+        try {
+          await writeComponentFiles(path, compiled)
+        } catch (err) {
+          err.message = `Error writing ${path}: ${err.message}`
+          errors.push(err)
+        }
 
         // mark component as completed
         resolve()
@@ -63,7 +82,8 @@ const main = async () => {
 
   Promise.all(threads).then(() => {
     if (errors.length) {
-      console.error('Finished with errors.')
+      console.error('Finished with errors:')
+      console.error(errors)
     } else {
       console.log('Compiled successfully.')
     }

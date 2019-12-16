@@ -11,6 +11,7 @@
 
 const path = require('path')
 const fs = require('fs')
+const mkdirp = require('mkdirp-promise')
 const globby = require('globby')
 const { compile, preprocess } = require('svelte/compiler')
 
@@ -90,14 +91,32 @@ const main = async () => {
   })
 }
 
-async function writeComponentFiles (path, compiled) {
-  const dest = path.join(BUILD_BASEDIR, path)
+async function writeComponentFiles (filePath, compiled) {
+  const dest = path.resolve(BUILD_BASEDIR, filePath)
 
-  // :TODO:
+  await mkdirp(path.dirname(dest))
+
+  if (compiled.css.code) {
+    await writeFilePromise(getFileId(dest, 'css'), compiled.css.code)
+  }
+  if (compiled.js.code) {
+    await writeFilePromise(getFileId(dest, 'js'), compiled.js.code)
+  }
 }
 
 function getFileId (path, newExt) {
   return path.replace(/\.svelte$/, `.${newExt}`)
+}
+
+function writeFilePromise (filePath, content) {
+  return new Promise((resolve, reject) => {
+    fs.writeFile(filePath, content, (err, res) => {
+      if (err) {
+        return reject(err)
+      }
+      resolve()
+    })
+  })
 }
 
 main()

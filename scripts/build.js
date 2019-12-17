@@ -58,14 +58,21 @@ const main = async () => {
         const cssId = getFileId(path, 'css')
 
         // compile the component
-        const processed = await preprocess(file.toString(), globalConfig.preprocess, thisFileOpts)
-        extractWarnings(processed.warnings)
+        let compiled
 
-        const compiled = compile(
-          processed.toString(),
-          Object.assign({}, config, thisFileOpts),
-        )
-        extractWarnings(compiled.warnings)
+        try {
+          const processed = await preprocess(file.toString(), globalConfig.preprocess, thisFileOpts)
+          extractWarnings(path, processed.warnings)
+
+          compiled = compile(
+            processed.toString(),
+            Object.assign({}, config, thisFileOpts),
+          )
+          extractWarnings(path, compiled.warnings)
+        } catch (err) {
+          addError('', err)
+          return resolve()
+        }
 
         if (compiled.css.code) {
           // add CSS sourcemap

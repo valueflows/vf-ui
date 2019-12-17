@@ -1,3 +1,5 @@
+<!-- <svelte:options tag="vf-kanban" /> -->
+
 <script>
   import Bin from './kanban/Bin.svelte'
 

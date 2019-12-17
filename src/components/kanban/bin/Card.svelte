@@ -1,3 +1,5 @@
+<!-- <svelte:options tag="vf-kanban-card" /> -->
+
 <script>
   export let onClick
   export let note

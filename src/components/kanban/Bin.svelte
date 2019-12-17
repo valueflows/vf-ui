@@ -1,3 +1,5 @@
+<!-- <svelte:options tag="vf-kanban-bin" /> -->
+
 <script>
   import Card from './bin/Card.svelte'
   import Output from './bin/Output.svelte'

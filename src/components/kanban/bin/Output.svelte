@@ -1,3 +1,5 @@
+<!-- <svelte:options tag="vf-kanban-output" /> -->
+
 <script>
   export let outputs = []
 </script>

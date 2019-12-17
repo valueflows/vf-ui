@@ -29,8 +29,18 @@ const main = async () => {
   let errors = []
   const threads = []
 
-  function extractWarnings (warnings) {
+  function addError (messagePrefix, err) {
+    if (messagePrefix) {
+      err.message = `${messagePrefix}: ${err.message}`
+    }
+    errors.push(err)
+  }
+
+  function extractWarnings (path, warnings) {
     if (warnings && warnings.length) {
+      warnings.forEach(w => {
+        w.message = `Warning: ${w.message}`
+      })
       errors = errors.concat(warnings)
     }
   }
@@ -40,8 +50,7 @@ const main = async () => {
     threads.push(new Promise((resolve, reject) => {
       fs.readFile(path, async (err, file) => {
         if (err) {
-          err.message = `Error reading ${path}: ${err.message}`
-          errors.push(err)
+          addError(`Error reading ${path}`, err)
           return resolve() // always return success, log errors non-fatally & separately
         }
 
@@ -71,8 +80,7 @@ const main = async () => {
         try {
           await writeComponentFiles(path, compiled)
         } catch (err) {
-          err.message = `Error writing ${path}: ${err.message}`
-          errors.push(err)
+          addError(`Error writing ${path}`, err)
         }
 
         // mark component as completed
@@ -83,10 +91,9 @@ const main = async () => {
 
   Promise.all(threads).then(() => {
     if (errors.length) {
-      console.error('Finished with errors:')
-      errors.forEach(err => {
-        console.error("\n" + err.toString())
-      })
+      console.log('Finished with errors.')
+      console.error('')
+      errors.forEach(renderError)
     } else {
       console.log('Compiled successfully.')
     }
@@ -119,6 +126,47 @@ function writeFilePromise (filePath, content) {
       resolve()
     })
   })
+}
+
+const RESET = '\x1b[0m'
+const BRIGHT = '\x1b[1m'
+const DIM = '\x1b[2m'
+
+const BG_RED = '\x1b[41m'
+
+const FG_WHITE = '\x1b[37m'
+const FG_YELLOW = '\x1b[33m'
+
+const STYL_LBL = `${BRIGHT}${BG_RED}${FG_WHITE}`
+const STYL_PATH = `${DIM}${FG_WHITE}`
+const STYL_MSG = `${FG_WHITE}`
+const STYL_FRAME = `${FG_YELLOW}`
+
+function renderError (error) {
+  const stack = error.stack
+  const filename = error.filename
+  const message = error.message
+  const frame = error.frame
+  const line = error.start ? error.start.line : ''
+  let kind
+
+  if (error.kind) {
+    kind = error.kind
+  } else if (typeof stack === 'string') {
+    const m = stack.match(/^([a-zA-Z0-9\_\$]+):\ /)
+    if (m) {
+      kind = m[1]
+    }
+  }
+
+  console.error(`${STYL_LBL}${kind || 'Error'}${RESET}: ${STYL_PATH}${filename}${line ? `:${line}` : ''}${RESET}`)
+  console.error(`\t${STYL_MSG}${message}${RESET}`)
+  if (frame) {
+    console.error(`${STYL_FRAME}${frame}${RESET}`)
+  } else {
+    console.error(`${STYL_FRAME}${stack}${RESET}`)
+  }
+  console.error()
 }
 
 main()

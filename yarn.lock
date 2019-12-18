@@ -9313,6 +9313,13 @@ svelte-preprocess@3.2.6:
     detect-indent "^6.0.0"
     strip-indent "^2.0.0"
 
+"svelte-universal-component-compiler@git://github.com/pospi/svelte-universal-component-compiler.git":
+  version "0.0.1"
+  resolved "git://github.com/pospi/svelte-universal-component-compiler.git#5908379ebd83174b352641ff6cfdeb63a81ce294"
+  dependencies:
+    globby "^10.0.1"
+    mkdirp-promise "^5.0.1"
+
 svelte@3.16.4:
   version "3.16.4"
   resolved "https://registry.yarnpkg.com/svelte/-/svelte-3.16.4.tgz#a14369c79d3a007bb1e13c8b52630efeca894096"

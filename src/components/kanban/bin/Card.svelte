@@ -7,10 +7,14 @@
   export let members = []
 </script>
 
-<style>
+<style lang="postcss">
+:root {
+  --border-color: #ccc;
+}
+
 .card {
   background: white;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid var(--border-color);
   border-radius: 3px;
   overflow: hidden;
   position: relative;

@@ -2,6 +2,7 @@
   "name": "vf-ui",
   "private": true,
   "scripts": {
+    "build": "svelte-ucc ./src/**/*.svelte ./build/",
     "storybook": "start-storybook",
     "build-stories": "build-storybook",
     "test": "NODE_ENV=unit jest --no-cache",
@@ -48,6 +49,7 @@
     "svelte-jester": "1.0.3",
     "svelte-loader": "2.13.6",
     "svelte-preprocess": "3.2.6",
+    "svelte-universal-component-compiler": "git://github.com/pospi/svelte-universal-component-compiler.git",
     "typescript": "3.7.2",
     "webpack": "4.41.2"
   }

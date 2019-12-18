@@ -118,6 +118,8 @@ async function writeComponentFiles (filePath, compiled) {
   if (compiled.js.code) {
     await writeFilePromise(getFileId(dest, 'js'), compiled.js.code)
   }
+
+  // :TODO: write JS sourcemap; write CSS sourcemap separately
 }
 
 function getFileId (path, newExt) {
